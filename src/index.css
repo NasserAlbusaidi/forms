@@ -1,0 +1,28 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+
+@font-face {
+  font-family: gotham;
+  src: url('../public/fonts/GothamRnd-Book.otf');
+  font-weight: bold;
+  font-style: bold;
+
+}
+
+@font-face {
+  font-family: gothamBold;
+  src: url('../public/fonts/GothamRnd-Bold.otf');
+  font-weight: bold;
+  font-style: bold;
+
+}
+
+@font-face {
+  font-family: gothamMedium;
+  src: url('../public/fonts/GothamRnd-Medium.otf');
+  font-weight: bold;
+  font-style: bold;
+
+}
