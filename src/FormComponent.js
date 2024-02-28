@@ -10,14 +10,15 @@ const FormComponent = () => {
   const [formData, setFormData] = useState({
     customerName: "",
     phoneNumber: "",
-    tagId: "",
+    dateOfExpiry: "",
     area: "",
-
     currentOperator: "",
     service: "",
     speed: 0,
     price: 0,
   });
+  const [speedValue, setSpeedValue] = useState(0);
+  const [priceValue, setPriceValue] = useState(25);
 
   const areas = ["Muscat", "Salalah", "Sohar", "Nizwa", "Sur", "Rustaq"];
   const areaOptions = areas.map((area) => ({ value: area, label: area }));
@@ -29,18 +30,62 @@ const FormComponent = () => {
   ];
   const speed = [50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600];
 
+
+  const handleSpeedChange = (event, newValue) => {
+    setSpeedValue(newValue);
+    setFormData((prevData) => ({
+      ...prevData,
+      speed: newValue,
+    }));
+  }
+  const handlePriceChange = (event, newValue) => {
+    setPriceValue(newValue);
+    setFormData((prevData) => ({
+      ...prevData,
+      price: newValue,
+    }));
+  }
+
   const handleChange = (e) => {
     const { name, value } = e.target;
+    
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
+    console.log(formData);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form Data:", formData);
+
+    const response = await fetch('https://api.sheetmonkey.io/form/no4zi7XKpRriFV2kXeLWRz', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    });
+
+    if (response.ok) {
+      // Handle success (optional)
+      console.log('Form submitted successfully!');
+      setFormData({
+        customerName: "",
+        phoneNumber: "",
+        dateOfExpiry: "",
+        area: "",
+        currentOperator: "",
+        service: "",
+        speed: 0,
+        price: 0,
+      });
+    } else {
+      // Handle error
+      console.error('Form submission failed:', response.status);
+    }
   };
+
 
   return (
     <form
@@ -82,14 +127,17 @@ const FormComponent = () => {
       </div>
 
       <div className="mb-4">
-        <label htmlFor="tagId" className="block text-sm font-medium text-white">
-          Tag ID:
+        <label
+          htmlFor="dateOfExpiry"
+          className="block text-sm font-medium text-white"
+        >
+          Date of Expiry:
         </label>
         <input
-          type="number"
-          id="tagId"
-          name="tagId"
-          value={formData.tagId}
+          type="month"
+          id="dateOfExpiry"
+          name="dateOfExpiry"
+          value={formData.dateOfExpiry}
           onChange={handleChange}
           className="mt-1 p-2 border rounded-md w-full"
         />
@@ -153,7 +201,8 @@ const FormComponent = () => {
         >
           <option value="">Select Service</option>
           {Serivce.map((service) => (
-            <option key={service} value={service}>
+            <option
+            className="text-[#715ac5]" key={service} value={service}>
               {service}
             </option>
           ))}
@@ -176,7 +225,9 @@ const FormComponent = () => {
           shiftStep={30}
           step={1}
           marks={prices}
-          color="secondary"
+          value={priceValue}
+          onChange={handlePriceChange}
+          sx={{ color:"#715ac5" }}
           min={20}
           max={40}
         />
@@ -195,9 +246,13 @@ const FormComponent = () => {
           valueLabelDisplay="auto"
           shiftStep={30}
           step={50}
+          value={speedValue}
+          onChange={handleSpeedChange}
           marks={speed}
           min={50}
-          color="secondary"
+          sx={{ 
+            color:"#715ac5"
+           }}
           max={600}
         />
         </div>
