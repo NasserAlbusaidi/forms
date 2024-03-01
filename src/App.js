@@ -1,11 +1,15 @@
-import './App.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import FormComponent from './FormComponent';
+import SuccessPage from './SuccessPage';
 
 function App() {
   return (
-    <div>
-      <FormComponent/>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<FormComponent />} />
+        <Route path="/success" element={<SuccessPage />} />
+      </Routes>
+    </Router>
   );
 }
 

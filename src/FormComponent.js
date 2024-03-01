@@ -2,9 +2,12 @@
 import React, { useState } from "react";
 import Select from "react-select";
 import { Slider } from "@mui/material";
+import { useNavigate } from 'react-router-dom';
+
 
 
 const FormComponent = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     customerName: "",
     phoneNumber: "",
@@ -75,6 +78,8 @@ const FormComponent = () => {
         speed: 0,
         price: 0,
       });
+    navigate('/success');
+
     } else {
       // Handle error
       console.error('Form submission failed:', response.status);
