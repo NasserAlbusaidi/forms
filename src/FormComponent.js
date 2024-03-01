@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Select from "react-select";
 import { Slider } from "@mui/material";
 import { useNavigate } from 'react-router-dom';
+import logo from './images/logo.png';
 
 
 
@@ -85,14 +86,17 @@ const FormComponent = () => {
       console.error('Form submission failed:', response.status);
     }
   };
-
-
+  
   return (
     <form
       className="max-w-md mx-auto mt-8 p-4 bg-[#715ac5] rounded shadow-md  font-gothamMedium"
       onSubmit={handleSubmit}
     >
-      <div className="mb-4">
+      {/* add a logo  */}
+      <img src={logo} alt="logo" className="mx-auto" />
+      <h1 className="block text-sm text-center font-medium text-white pt-2">Internet Service Form</h1>
+
+      <div className="mb-4 pt-6">
         <label
           htmlFor="customerName"
           className="block text-sm font-medium text-white"
@@ -159,6 +163,46 @@ const FormComponent = () => {
           }}
           options={areaOptions}
           className="mt-1 text-[#715ac5]"
+          styles={
+            {
+              control: (styles) => ({
+                ...styles,
+                backgroundColor: "white",
+                color: "red",
+                
+              }),
+
+              option: (styles, { data, isDisabled, isFocused, isSelected }) => {
+                return {
+                  ...styles,
+                  backgroundColor: isDisabled
+                    ? null
+                    : isSelected
+                    ? "#715ac5"
+                    : isFocused
+                    ? "#715ac5"
+                    : null,
+                  color: isDisabled
+                    ? "#ccc"
+                    : isSelected
+                    ? "white"
+                    : isFocused
+                    ? "white"
+                    : "#715ac5",
+                  cursor: isDisabled ? "not-allowed" : "default",
+                  ':active': {
+                    ...styles[':active'],
+                    backgroundColor: !isDisabled
+                      ? isSelected
+                        ? "#715ac5"
+                        : "#715ac5"
+                      : undefined,
+                  },
+                };
+              },
+                
+            }
+          }
         />
       </div>
 
@@ -174,9 +218,9 @@ const FormComponent = () => {
           name="currentOperator"
           value={formData.currentOperator}
           onChange={handleChange}
-          className="mt-1 p-2 border rounded-md w-full"
+          className="mt-1 p-2 border rounded-md w-full text-[#715ac5]"
         >
-          <option value="" className="text-[#715ac5]"> Select Operator</option>
+          <option value="">Select Operator</option>
           {Operator.map((operator) => (
             <option key={operator} value={operator} className="text-[#715ac5]">
               {operator}
@@ -197,7 +241,7 @@ const FormComponent = () => {
           name="service"
           value={formData.service}
           onChange={handleChange}
-          className="mt-1 p-2 border rounded-md w-full"
+          className="mt-1 p-2 border rounded-md w-full  text-[#715ac5]"
         >
           <option value="">Select Service</option>
           {Serivce.map((service) => (
