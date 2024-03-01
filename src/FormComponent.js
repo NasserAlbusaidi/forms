@@ -1,10 +1,8 @@
 // FormComponent.jsx
 import React, { useState } from "react";
 import Select from "react-select";
-import { Slider, Stack } from "@mui/material";
-import { VolumeDown, VolumeUp } from "@mui/icons-material";
-import { AiOutlineSearch } from "react-icons/ai";
-import { purple } from "@mui/material/colors";
+import { Slider } from "@mui/material";
+
 
 const FormComponent = () => {
   const [formData, setFormData] = useState({
@@ -51,7 +49,6 @@ const FormComponent = () => {
       ...prevData,
       [name]: value,
     }));
-    console.log(formData);
   };
 
   const handleSubmit = async (e) => {
