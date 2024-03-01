@@ -117,7 +117,7 @@ const FormComponent = () => {
           name="phoneNumber"
           value={formData.phoneNumber}
           onChange={handleChange}
-          className="mt-1 p-2 border rounded-md w-full"
+          className="mt-1 p-2 border rounded-md w-full text-[#715ac5]"
         />
       </div>
 
@@ -134,7 +134,7 @@ const FormComponent = () => {
           name="dateOfExpiry"
           value={formData.dateOfExpiry}
           onChange={handleChange}
-          className="mt-1 p-2 border rounded-md w-full"
+          className="mt-1 p-2 border rounded-md w-full text-[#715ac5]"
         />
       </div>
 
